@@ -9,9 +9,9 @@ public class App {
 
 	public static void main(String[] args) {
 		// ruta del archivo comprimido
-		String path = "C:\\Users\\rossi\\OneDrive\\Escritorio\\enwiki-20230201-pages-articles-multistream.xml.bz2";
+		String path = args[0];
 		// cantidad de paginaciones
-		int amountPages = 1;
+		int amountPages = Integer.parseInt(args[1]);
 		try {
 			WriterFileTest writer = new WriterFileTest(path);
 			writer.generator(ReaderFile.generator(path), amountPages);
