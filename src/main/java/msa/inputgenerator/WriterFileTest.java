@@ -1,4 +1,5 @@
-package msa.GeneratorInput;
+package msa.inputgenerator;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import javax.xml.stream.XMLEventFactory;
@@ -9,15 +10,12 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 public class WriterFileTest {
-	//
 	private static final String ROOT_TAG = "wikidata";
 	private static final String[] TAGS = new String[] { "page", "title", "text" };
 	private static String REGEX_REF_TAG = "<ref.*>.*</ref>|<ref.*/>";
-	//
 	private final XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 	private final XMLOutputFactory factory = XMLOutputFactory.newInstance();
 	private final XMLEventWriter writer;
-	//
 	private int eventCode;
 
 	public WriterFileTest(String path) throws FileNotFoundException, XMLStreamException {
@@ -25,29 +23,27 @@ public class WriterFileTest {
 	}
 
 	public void generator(XMLStreamReader xmlReader, int amountPages) throws XMLStreamException {
-		if (amountPages < 1)
-			return;
 		int pageNumber = 0;
-			this.startDocmunent();
-			while (xmlReader.hasNext() && pageNumber < amountPages) {
-				eventCode = xmlReader.next();
-				if (XMLStreamConstants.START_ELEMENT == eventCode) {
-					for (String tag : TAGS) {
-						if (xmlReader.getLocalName().equalsIgnoreCase(tag)) {
-							this.addStartElement(tag);
-							this.addCharactersElement(xmlReader);
-						}
-					}
-				}
-				if (XMLStreamConstants.END_ELEMENT == eventCode) {
-					for (String tag : TAGS) {
-						if (xmlReader.getLocalName().equalsIgnoreCase(tag)) {
-							pageNumber += this.addEndElement(tag);
-						}
+		this.startDocmunent();
+		while (xmlReader.hasNext() && pageNumber < amountPages) {
+			eventCode = xmlReader.next();
+			if (XMLStreamConstants.START_ELEMENT == eventCode) {
+				for (String tag : TAGS) {
+					if (xmlReader.getLocalName().equalsIgnoreCase(tag)) {
+						this.addStartElement(tag);
+						this.addCharactersElement(xmlReader);
 					}
 				}
 			}
-			this.endDocmunent();
+			if (XMLStreamConstants.END_ELEMENT == eventCode) {
+				for (String tag : TAGS) {
+					if (xmlReader.getLocalName().equalsIgnoreCase(tag)) {
+						pageNumber += this.addEndElement(tag);
+					}
+				}
+			}
+		}
+		this.endDocmunent();
 	}
 
 	private void startDocmunent() throws XMLStreamException {
@@ -77,5 +73,5 @@ public class WriterFileTest {
 	private void endDocmunent() throws XMLStreamException {
 		writer.add(eventFactory.createEndElement("", "", ROOT_TAG));
 		writer.add(eventFactory.createEndDocument());
-	}	
+	}
 }
