@@ -50,4 +50,7 @@ Thumbs.db
 
 # eclipse
 .metadata
+.settings
+.classpath
+.project
 
