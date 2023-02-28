@@ -25,7 +25,7 @@ public class App {
 			InputReader inputReader = new InputReader(inputStream);
 
 			long startReadingTime = System.currentTimeMillis();
-			Map<String, String> articles = inputReader.generator(pagesLimit);
+			Map<String, String> articles = inputReader.mapArticles(pagesLimit);
 			long endReadingTime = System.currentTimeMillis();
 			inputReader.close();
 			long lengthArticlesText = 0;

@@ -22,7 +22,7 @@ public class InputReader {
 		xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
 	}
 
-	public Map<String, String> generator(int amountPages) throws XMLStreamException {
+	public Map<String, String> mapArticles(int amountPages) throws XMLStreamException {
 		int pageNumber = 0;
 		Map<String, String> output = new TreeMap<String, String>();
 		while (xmlReader.hasNext() && pageNumber < amountPages) {
