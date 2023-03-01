@@ -13,19 +13,19 @@ public class InputReader {
 	private static final String TAG_ARTICLE_ROOT = "page";
 	private static final String TAG_ARTICLE_TITLE = "title";
 	private static final String TAG_ARTICLE_DESCRIPTION = "text";
-	private static String REGEX_REF_TAG = "<ref.*>.*</ref>|<ref.*/>";
+	private static final String REGEX_REF_TAG = "<ref.*>.*</ref>|<ref.*/>";
 
-	static private boolean isPageStart(XMLStreamReader xmlReader, int eventCode) {
+	private static boolean isPageStart(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.START_ELEMENT == eventCode
 				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
 	}
 
-	static private boolean isPageEnd(XMLStreamReader xmlReader, int eventCode) {
+	private static boolean isPageEnd(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.END_ELEMENT == eventCode
 				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
 	}
 
-	static private String addCharactersElement(XMLStreamReader xmlReader, int eventCode) throws XMLStreamException {
+	private static String addCharactersElement(XMLStreamReader xmlReader, int eventCode) throws XMLStreamException {
 		eventCode = xmlReader.next();
 		StringBuilder characters = new StringBuilder();
 		while (XMLStreamConstants.CHARACTERS == eventCode) {
@@ -64,8 +64,9 @@ public class InputReader {
 				}
 			}
 			xmlReader.close();
+
 		} catch (XMLStreamException e) {
-			throw new IllegalArgumentException("Error reading file: "+ e);
+			throw new IllegalArgumentException("Error reading file: " + e);
 		}
 
 		return output;
