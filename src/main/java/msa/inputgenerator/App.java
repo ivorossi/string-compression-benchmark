@@ -5,16 +5,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.log4j.Logger;
 
 public class App {
-	private static Logger LOGJAVA = Logger.getLogger(App.class.getPackageName());
+	private static final Logger LOG = Logger.getLogger(App.class);
 
 	public static void main(String[] args) {
 		String path = args[0];
@@ -22,31 +18,22 @@ public class App {
 
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
-			InputReader inputReader = new InputReader(inputStream);
 
 			long startReadingTime = System.currentTimeMillis();
-			Map<String, String> articles = inputReader.mapArticles(pagesLimit);
+			Map<String, String> articles = InputReader.readPages(inputStream, pagesLimit);
 			long endReadingTime = System.currentTimeMillis();
-			inputReader.close();
-			long lengthArticlesText = 0;
 
+			long lengthArticlesText = 0;
 			for (String article : articles.values()) {
 				lengthArticlesText += article.getBytes().length;
 			}
 
-			Pattern pattern = Pattern.compile("[^\\\\/]+$");
-			Matcher matcher = pattern.matcher(path);
-			String filename = "";
-			if (matcher.find()) {
-				filename = matcher.group();
-			}
+			LOG.debug("source: " + path + "\ntotal memory: " + Runtime.getRuntime().totalMemory() + "|| free memory : "
+					+ Runtime.getRuntime().freeMemory() + "\narticles read: " + articles.size() + "|| reading time: "
+					+ (endReadingTime - startReadingTime) + "|| length bytes all articles: " + lengthArticlesText
+					+ "\n");
 
-			LOGJAVA.debug("source: " + filename + "\ntotal memory: " + Runtime.getRuntime().totalMemory()
-					+ "|| free memory : " + Runtime.getRuntime().freeMemory() + "\narticles read: " + articles.size()
-					+ "|| reading time: " + (endReadingTime - startReadingTime) + "|| length bytes all articles: "
-					+ lengthArticlesText + "\n");
-
-		} catch (XMLStreamException | IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Error reading file: " + path, e);
 		}
 	}

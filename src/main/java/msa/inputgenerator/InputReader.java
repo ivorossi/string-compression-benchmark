@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -15,52 +14,18 @@ public class InputReader {
 	private static final String TAG_ARTICLE_TITLE = "title";
 	private static final String TAG_ARTICLE_DESCRIPTION = "text";
 	private static String REGEX_REF_TAG = "<ref.*>.*</ref>|<ref.*/>";
-	private final XMLStreamReader xmlReader;
-	private int eventCode;
 
-	public InputReader(InputStream inputStream) throws XMLStreamException, FactoryConfigurationError {
-		xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
-	}
-
-	public Map<String, String> mapArticles(int amountPages) throws XMLStreamException {
-		int pageNumber = 0;
-		Map<String, String> output = new TreeMap<String, String>();
-		while (xmlReader.hasNext() && pageNumber < amountPages) {
-			eventCode = xmlReader.next();
-			if (this.isPageStart()) {
-				pageNumber++;
-				String key = null;
-				String value = null;
-				while (!this.isPageEnd()) {
-					eventCode = xmlReader.next();
-					if (XMLStreamConstants.START_ELEMENT == eventCode) {
-						if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_TITLE)) {
-							key = this.addCharactersElement(xmlReader);
-						}
-						if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_DESCRIPTION)) {
-							value = this.addCharactersElement(xmlReader);
-						}
-					}
-				}
-				if (key != null && value != null) {
-					output.put(key, value);
-				}
-			}
-		}
-		return output;
-	}
-
-	private boolean isPageStart() {
+	static private boolean isPageStart(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.START_ELEMENT == eventCode
 				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
 	}
 
-	private boolean isPageEnd() {
+	static private boolean isPageEnd(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.END_ELEMENT == eventCode
 				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
 	}
 
-	private String addCharactersElement(XMLStreamReader xmlReader) throws XMLStreamException {
+	static private String addCharactersElement(XMLStreamReader xmlReader, int eventCode) throws XMLStreamException {
 		eventCode = xmlReader.next();
 		StringBuilder characters = new StringBuilder();
 		while (XMLStreamConstants.CHARACTERS == eventCode) {
@@ -70,9 +35,40 @@ public class InputReader {
 		return characters.toString().replaceAll(REGEX_REF_TAG, "");
 	}
 
-	public void close() throws XMLStreamException {
-		this.xmlReader.close();
+	public static Map<String, String> readPages(InputStream inputStream, int pagesLimit) {
+		int eventCode;
+		int pageNumber = 0;
+		Map<String, String> output = new TreeMap<String, String>();
+		try {
+			XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
+			while (xmlReader.hasNext() && pageNumber < pagesLimit) {
+				eventCode = xmlReader.next();
+				if (isPageStart(xmlReader, eventCode)) {
+					pageNumber++;
+					String key = null;
+					String value = null;
+					while (!isPageEnd(xmlReader, eventCode)) {
+						eventCode = xmlReader.next();
+						if (XMLStreamConstants.START_ELEMENT == eventCode) {
+							if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_TITLE)) {
+								key = addCharactersElement(xmlReader, eventCode);
+							}
+							if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_DESCRIPTION)) {
+								value = addCharactersElement(xmlReader, eventCode);
+							}
+						}
+					}
+					if (key != null && value != null) {
+						output.put(key, value);
+					}
+				}
+			}
+			xmlReader.close();
+		} catch (XMLStreamException e) {
+			throw new IllegalArgumentException("Error reading file: "+ e);
+		}
 
+		return output;
 	}
 
 }

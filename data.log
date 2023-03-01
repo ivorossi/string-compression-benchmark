@@ -26,3 +26,11 @@ source: enwiki-20230201-pages-articles-multistream.xml.bz2
 total memory: 6559891456|| free memory : 1476712064
 articles read: 200000|| reading time: 241093|| length bytes all articles: 2407464773
 
+source: C:\Users\rossi\OneDrive\Escritorio\eswiki-20230201-pages-articles-multistream.xml.bz2
+total memory: 6559891456|| free memory : 6513754112
+articles read: 30|| reading time: 245|| length bytes all articles: 982568
+
+source: C:\Users\rossi\OneDrive\Escritorio\eswiki-20230201-pages-articles-multistream.xml.bz2
+total memory: 6559891456|| free memory : 6513754112
+articles read: 30|| reading time: 261|| length bytes all articles: 982568
+
