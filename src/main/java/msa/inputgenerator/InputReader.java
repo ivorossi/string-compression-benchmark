@@ -66,7 +66,7 @@ public class InputReader {
 			xmlReader.close();
 
 		} catch (XMLStreamException e) {
-			throw new IllegalArgumentException("Error reading file: " + e);
+			throw new IllegalArgumentException("Error processing XML file: " + e.getMessage());
 		}
 
 		return output;
