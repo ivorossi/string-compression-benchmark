@@ -15,7 +15,6 @@ dist/
 
 # Log files
 *.log
-
 # Package files
 *.jar
 
@@ -53,4 +52,5 @@ Thumbs.db
 .settings
 .classpath
 .project
+
 
