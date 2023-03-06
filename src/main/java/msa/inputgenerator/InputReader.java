@@ -10,29 +10,28 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 public class InputReader {
-	private static final String TAG_ARTICLE_ROOT = "page";
-	private static final String TAG_ARTICLE_TITLE = "title";
-	private static final String TAG_ARTICLE_DESCRIPTION = "text";
-	private static final String REGEX_REF_TAG = "<ref.*>.*</ref>|<ref.*/>";
+	private static final String PAGE_TAG_NAME = "page";
+	private static final String TITLE_TAG_NAME = "title";
+	private static final String TEXT_TAG_NAME = "text";
 
 	private static boolean isPageStart(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.START_ELEMENT == eventCode
-				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
+				&& xmlReader.getLocalName().equalsIgnoreCase(PAGE_TAG_NAME);
 	}
 
 	private static boolean isPageEnd(XMLStreamReader xmlReader, int eventCode) {
 		return XMLStreamConstants.END_ELEMENT == eventCode
-				&& xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_ROOT);
+				&& xmlReader.getLocalName().equalsIgnoreCase(PAGE_TAG_NAME);
 	}
 
-	private static String addCharactersElement(XMLStreamReader xmlReader, int eventCode) throws XMLStreamException {
-		eventCode = xmlReader.next();
+	private static String readCharacters(XMLStreamReader xmlReader) throws XMLStreamException {
+		int eventCode = xmlReader.next();
 		StringBuilder characters = new StringBuilder();
 		while (XMLStreamConstants.CHARACTERS == eventCode) {
 			characters.append(xmlReader.getText());
 			eventCode = xmlReader.next();
 		}
-		return characters.toString().replaceAll(REGEX_REF_TAG, "");
+		return characters.toString();
 	}
 
 	public static Map<String, String> readPages(InputStream inputStream, int pagesLimit) {
@@ -50,25 +49,21 @@ public class InputReader {
 					while (!isPageEnd(xmlReader, eventCode)) {
 						eventCode = xmlReader.next();
 						if (XMLStreamConstants.START_ELEMENT == eventCode) {
-							if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_TITLE)) {
-								key = addCharactersElement(xmlReader, eventCode);
+							if (xmlReader.getLocalName().equalsIgnoreCase(TITLE_TAG_NAME)) {
+								key = readCharacters(xmlReader);
 							}
-							if (xmlReader.getLocalName().equalsIgnoreCase(TAG_ARTICLE_DESCRIPTION)) {
-								value = addCharactersElement(xmlReader, eventCode);
+							if (xmlReader.getLocalName().equalsIgnoreCase(TEXT_TAG_NAME)) {
+								value = readCharacters(xmlReader);
 							}
 						}
 					}
-					if (key != null && value != null) {
-						output.put(key, value);
-					}
+					output.put(key, value);
 				}
 			}
 			xmlReader.close();
-
 		} catch (XMLStreamException e) {
-			throw new IllegalArgumentException("Error processing XML file: " + e.getMessage());
+			throw new IllegalStateException("Error processing XML", e);
 		}
-
 		return output;
 	}
 
