@@ -1,4 +1,4 @@
-package msa.inputgenerator;
+package com.brightsector.string_compression_benchmark_ivo;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -15,13 +15,11 @@ public class InputReader {
 	private static final String TEXT_TAG_NAME = "text";
 
 	private static boolean isPageStart(XMLStreamReader xmlReader, int eventCode) {
-		return XMLStreamConstants.START_ELEMENT == eventCode
-				&& xmlReader.getLocalName().equalsIgnoreCase(PAGE_TAG_NAME);
+		return XMLStreamConstants.START_ELEMENT == eventCode && PAGE_TAG_NAME.equals(xmlReader.getLocalName());
 	}
 
 	private static boolean isPageEnd(XMLStreamReader xmlReader, int eventCode) {
-		return XMLStreamConstants.END_ELEMENT == eventCode
-				&& xmlReader.getLocalName().equalsIgnoreCase(PAGE_TAG_NAME);
+		return XMLStreamConstants.END_ELEMENT == eventCode && PAGE_TAG_NAME.equals(xmlReader.getLocalName());
 	}
 
 	private static String readCharacters(XMLStreamReader xmlReader) throws XMLStreamException {
@@ -35,13 +33,12 @@ public class InputReader {
 	}
 
 	public static Map<String, String> readPages(InputStream inputStream, int pagesLimit) {
-		int eventCode;
-		int pageNumber = 0;
-		Map<String, String> output = new TreeMap<String, String>();
 		try {
+			int pageNumber = 0;
+			Map<String, String> output = new TreeMap<String, String>();
 			XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
 			while (xmlReader.hasNext() && pageNumber < pagesLimit) {
-				eventCode = xmlReader.next();
+				int eventCode = xmlReader.next();
 				if (isPageStart(xmlReader, eventCode)) {
 					pageNumber++;
 					String key = null;
@@ -49,10 +46,10 @@ public class InputReader {
 					while (!isPageEnd(xmlReader, eventCode)) {
 						eventCode = xmlReader.next();
 						if (XMLStreamConstants.START_ELEMENT == eventCode) {
-							if (xmlReader.getLocalName().equalsIgnoreCase(TITLE_TAG_NAME)) {
+							if (TITLE_TAG_NAME.equals(xmlReader.getLocalName())) {
 								key = readCharacters(xmlReader);
 							}
-							if (xmlReader.getLocalName().equalsIgnoreCase(TEXT_TAG_NAME)) {
+							if (TEXT_TAG_NAME.equals(xmlReader.getLocalName())) {
 								value = readCharacters(xmlReader);
 							}
 						}
@@ -61,10 +58,10 @@ public class InputReader {
 				}
 			}
 			xmlReader.close();
+			return output;
 		} catch (XMLStreamException e) {
 			throw new IllegalStateException("Error processing XML", e);
 		}
-		return output;
 	}
 
 }

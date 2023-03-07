@@ -1,4 +1,4 @@
-package msa.inputgenerator;
+package com.brightsector.string_compression_benchmark_ivo;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
