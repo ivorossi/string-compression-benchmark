@@ -31,24 +31,21 @@ public class App {
 				compressedItems.add(CompressUncompressAlgorithm.compress(item, compressionAlgorithm));
 			});
 			long endReadingAndCompressTime = System.currentTimeMillis();
-			long byteUncompress = 0;
 			long bytsCompress = 0;
 			long startUncompressTime = System.currentTimeMillis();
 			for (byte[] compressedItem : compressedItems) {
 				bytsCompress += compressedItem.length;
-				String textUncompress = CompressUncompressAlgorithm.uncompress(compressedItem, compressionAlgorithm);
-				byteUncompress += textUncompress.length();
+				CompressUncompressAlgorithm.uncompress(compressedItem, compressionAlgorithm);
 			}
 			long endUncompressTime = System.currentTimeMillis();
 			LOG.debug("\nsource: " + path + "\n"
-					+ "technology: " + compressionAlgorithm
+					+ "algorthm: " + compressionAlgorithm
 					+ "\t total memory: " + Runtime.getRuntime().totalMemory()
 					+ "\t free memory : " + Runtime.getRuntime().freeMemory() + "\n"
 					+ "time reading and compressing: " + (endReadingAndCompressTime - startReadingAndCompressTime)
-					+ "\t articles byte size: " + lengthArticlesText.toString() 
-					+ "\tcompress byte size: " + bytsCompress + "\n" 
+					+ "\t articles byte size: " + lengthArticlesText.toString()+ "\n" 
 					+ "time uncompress: " + (endUncompressTime - startUncompressTime) 
-					+ "\t uncompress byte size: " + byteUncompress + "\n"
+					+ "\t compress byte size: " + bytsCompress + "\n"
 					+ "articles read: " + pagesLimit + "\n");
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Error reading file: " + path, e);
