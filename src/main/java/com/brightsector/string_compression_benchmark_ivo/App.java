@@ -32,7 +32,7 @@ public class App {
 			});
 			long endReadingAndCompressTime = System.currentTimeMillis();
 			long byteUncompress = 0;
-			int bytsCompress = 0;
+			long bytsCompress = 0;
 			long startUncompressTime = System.currentTimeMillis();
 			for (byte[] compressedItem : compressedItems) {
 				bytsCompress += compressedItem.length;
@@ -49,7 +49,7 @@ public class App {
 					+ "\tcompress byte size: " + bytsCompress + "\n" 
 					+ "time uncompress: " + (endUncompressTime - startUncompressTime) 
 					+ "\t uncompress byte size: " + byteUncompress + "\n"
-					+ "articles read: " + pagesLimit);
+					+ "articles read: " + pagesLimit + "\n");
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Error reading file: " + path, e);
 		}
