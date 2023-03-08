@@ -6,51 +6,50 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
-	private static final Logger LOG = LogManager.getLogger(App.class);
+	private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
 		String path = args[0];
 		int pagesLimit = Integer.parseInt(args[1]);
 		String tagToExtract = args[2];
-		String technology =  args[3];
+		String compressionAlgorithm = args[3];
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
-			long startReadingTime = System.currentTimeMillis();
-			List<String> items = InputReader.readPages(inputStream, pagesLimit, tagToExtract);
-			long endReadingTime = System.currentTimeMillis();
-			long lengthArticlesText = 0;
 			List<byte[]> compressedItems = new ArrayList<byte[]>();
-			long startCompressTime = System.currentTimeMillis();
-			for (String item : items) {
-				lengthArticlesText += item.length();
-				compressedItems.add(CompressUncompressTechnologies.compress(item, technology));
-			}
-			long endCompressTime = System.currentTimeMillis();
-			items = new ArrayList<String>();
+			AtomicLong lengthArticlesText = new AtomicLong();
+			long startReadingAndCompressTime = System.currentTimeMillis();
+			InputReader.readPages(inputStream, pagesLimit, (title, text) -> {
+				String item = "title".equals(tagToExtract) ? title : text;
+				lengthArticlesText.addAndGet(item.length());
+				compressedItems.add(CompressUncompressAlgorithm.compress(item, compressionAlgorithm));
+			});
+			long endReadingAndCompressTime = System.currentTimeMillis();
+			long byteUncompress = 0;
 			int bytsCompress = 0;
 			long startUncompressTime = System.currentTimeMillis();
 			for (byte[] compressedItem : compressedItems) {
 				bytsCompress += compressedItem.length;
-				items.add(CompressUncompressTechnologies.uncompress(compressedItem, technology));
+				String textUncompress = CompressUncompressAlgorithm.uncompress(compressedItem, compressionAlgorithm);
+				byteUncompress += textUncompress.length();
 			}
 			long endUncompressTime = System.currentTimeMillis();
-			LOG.debug("source: " + path + "\n"
-					+"technology: " + technology
-					+ "\t total memory: " + Runtime.getRuntime().totalMemory() 
+			LOG.debug("\nsource: " + path + "\n"
+					+ "technology: " + compressionAlgorithm
+					+ "\t total memory: " + Runtime.getRuntime().totalMemory()
 					+ "\t free memory : " + Runtime.getRuntime().freeMemory() + "\n"
-					+ "time reading: " + (endReadingTime - startReadingTime) 
-					+ "\t articles byte size: " + lengthArticlesText 
-					+ "\t articles read: " + pagesLimit + "\n"
-					+ "time compress: " + (endCompressTime - startCompressTime)
-					+ "\t compress byte size: " + bytsCompress + "\n"
-					+ "time uncompress: " + (endUncompressTime - startUncompressTime)
-					+"\t uncompress byte size: " + lengthArticlesText);
+					+ "time reading and compressing: " + (endReadingAndCompressTime - startReadingAndCompressTime)
+					+ "\t articles byte size: " + lengthArticlesText.toString() 
+					+ "\tcompress byte size: " + bytsCompress + "\n" 
+					+ "time uncompress: " + (endUncompressTime - startUncompressTime) 
+					+ "\t uncompress byte size: " + byteUncompress + "\n"
+					+ "articles read: " + pagesLimit);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Error reading file: " + path, e);
 		}

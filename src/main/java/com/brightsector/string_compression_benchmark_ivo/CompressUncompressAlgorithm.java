@@ -28,13 +28,13 @@ import net.jpountz.lz4.LZ4BlockOutputStream;
 import net.jpountz.lz4.LZ4FrameInputStream;
 import net.jpountz.lz4.LZ4FrameOutputStream;
 
-public class CompressUncompressTechnologies {
+public class CompressUncompressAlgorithm {
 
-	public static byte[] compress(String text, String technology) {
+	public static byte[] compress(String text, String algorithm) {
 		try {
 			byte[] textByte = text.getBytes(StandardCharsets.UTF_8);
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
-			OutputStream compress = compressTechnology(technology, output, textByte.length);
+			OutputStream compress = compressTechnology(algorithm, output, textByte.length);
 			if (compress != null) {
 				compress.write(textByte);
 				compress.close();
@@ -47,10 +47,10 @@ public class CompressUncompressTechnologies {
 		}
 	}
 
-	public static String uncompress(byte[] textCompress, String technology) {
+	public static String uncompress(byte[] textCompress, String algorithm) {
 		try {
 			ByteArrayInputStream input = new ByteArrayInputStream(textCompress);
-			InputStream uncompress = uncompressTechnology(technology, input);
+			InputStream uncompress = uncompressTechnology(algorithm, input);
 			if (uncompress != null) {
 				byte[] buffer = uncompress.readAllBytes();
 				uncompress.close();
@@ -63,49 +63,49 @@ public class CompressUncompressTechnologies {
 		}
 	}
 
-	private static OutputStream compressTechnology(String technology, ByteArrayOutputStream output, int textSize)
+	private static OutputStream compressTechnology(String algorithm, ByteArrayOutputStream output, int textSize)
 			throws IOException {
-		if (technology.equals("DEFLATER")) {
+		if (algorithm.equals("DEFLATER")) {
 			return new DeflateCompressorOutputStream(output);
-		} else if (technology.equals("GZIP")) {
+		} else if (algorithm.equals("GZIP")) {
 			return new GzipCompressorOutputStream(output);
-		} else if (technology.equals("LZ4Framed")) {
+		} else if (algorithm.equals("LZ4Framed")) {
 			return new LZ4FrameOutputStream(output);
-		} else if (technology.equals("LZ4Block")) {
+		} else if (algorithm.equals("LZ4Block")) {
 			return new LZ4BlockOutputStream(output);
-		} else if (technology.equals("LZMA")) {
+		} else if (algorithm.equals("LZMA")) {
 			return new LZMACompressorOutputStream(output);
-		} else if (technology.equals("SNAPPYStandard")) {
+		} else if (algorithm.equals("SNAPPYStandard")) {
 			return new SnappyCompressorOutputStream(output, textSize);
-		} else if (technology.equals("XZ")) {
+		} else if (algorithm.equals("XZ")) {
 			return new XZCompressorOutputStream(output);
-		} else if (technology.equals("Zstandard")) {
+		} else if (algorithm.equals("Zstandard")) {
 			return new ZstdCompressorOutputStream(output);
-		} else if (technology.equals("BZIP2")) {
+		} else if (algorithm.equals("BZIP2")) {
 			return new BZip2CompressorOutputStream(output);
 		} else {
 			return null;
 		}
 	}
 
-	private static InputStream uncompressTechnology(String technology, ByteArrayInputStream input) throws IOException {
-		if (technology.equals("DEFLATER")) {
+	private static InputStream uncompressTechnology(String algorithm, ByteArrayInputStream input) throws IOException {
+		if (algorithm.equals("DEFLATER")) {
 			return new DeflateCompressorInputStream(input);
-		} else if (technology.equals("GZIP")) {
+		} else if (algorithm.equals("GZIP")) {
 			return new GzipCompressorInputStream(input);
-		} else if (technology.equals("LZ4Framed")) {
+		} else if (algorithm.equals("LZ4Framed")) {
 			return new LZ4FrameInputStream(input);
-		} else if (technology.equals("LZ4Block")) {
+		} else if (algorithm.equals("LZ4Block")) {
 			return new LZ4BlockInputStream(input);
-		} else if (technology.equals("LZMA")) {
+		} else if (algorithm.equals("LZMA")) {
 			return new LZMACompressorInputStream(input);
-		} else if (technology.equals("SNAPPYStandard")) {
+		} else if (algorithm.equals("SNAPPYStandard")) {
 			return new SnappyCompressorInputStream(input);
-		} else if (technology.equals("XZ")) {
+		} else if (algorithm.equals("XZ")) {
 			return new XZCompressorInputStream(input);
-		} else if (technology.equals("Zstandard")) {
+		} else if (algorithm.equals("Zstandard")) {
 			return new ZstdCompressorInputStream(input);
-		} else if (technology.equals("BZIP2")) {
+		} else if (algorithm.equals("BZIP2")) {
 			return new BZip2CompressorInputStream(input);
 		} else {
 			return null;
