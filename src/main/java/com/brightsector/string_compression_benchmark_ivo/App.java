@@ -39,10 +39,10 @@ public class App {
 			  "Snnapystd", new SnnapystdCompressionAlgorithm(),
 			  "NoCompress", new NoCompress()); 
 	public static void main(String[] args) {
-		String path = "C:\\Users\\rossi\\OneDrive\\Escritorio\\eswiki-20230201-pages-articles-multistream.xml.bz2";
-		int pagesLimit = Integer.parseInt("800000");
-		String tagToExtract = "text";
-		String compressionAlgorithm = "NoCompress";
+		String path = args[0];
+		int pagesLimit = Integer.parseInt(args[1]);
+		String tagToExtract = args[2];
+		String compressionAlgorithm = args[3];
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
 			CompressionAlgorithm algorithm = ALGORITHMS.get(compressionAlgorithm);
