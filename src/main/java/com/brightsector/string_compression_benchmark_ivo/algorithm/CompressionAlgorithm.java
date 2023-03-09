@@ -10,9 +10,9 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class CompressionAlgorithm {
 
-	public abstract OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException;
+	protected abstract OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException;
 
-	public abstract InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException;
+	protected abstract InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException;
 
 	public byte[] compress(String text) {
 		try {
