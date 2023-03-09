@@ -14,6 +14,7 @@ public class GzipCompressionAlgorithm extends CompressionAlgorithm {
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
 		return new GzipCompressorOutputStream(output);
 	}
+
 	@Override
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 
