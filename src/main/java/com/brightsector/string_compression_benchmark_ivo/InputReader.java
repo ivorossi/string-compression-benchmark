@@ -39,20 +39,20 @@ public class InputReader {
 				int eventCode = xmlReader.next();
 				if (isPageStart(xmlReader, eventCode)) {
 					pageNumber++;
-					String key = null;
-					String value = null;
+					String title = null;
+					String text = null;
 					while (!isPageEnd(xmlReader, eventCode)) {
 						eventCode = xmlReader.next();
 						if (XMLStreamConstants.START_ELEMENT == eventCode) {
 							if (TITLE_TAG_NAME.equals(xmlReader.getLocalName())) {
-								key = readCharacters(xmlReader);
+								title = readCharacters(xmlReader);
 							}
 							if (TEXT_TAG_NAME.equals(xmlReader.getLocalName())) {
-								value = readCharacters(xmlReader);
+								text = readCharacters(xmlReader);
 							}
 						}
 					}
-					reader.accept(key, value);
+					reader.accept(title, text);
 				}
 			}
 			xmlReader.close();
