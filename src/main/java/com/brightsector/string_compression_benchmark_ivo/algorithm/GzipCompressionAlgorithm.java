@@ -10,6 +10,7 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 
 public class GzipCompressionAlgorithm extends CompressionAlgorithm {
+
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
 		return new GzipCompressorOutputStream(output);
@@ -17,7 +18,6 @@ public class GzipCompressionAlgorithm extends CompressionAlgorithm {
 
 	@Override
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
-
 		return new GzipCompressorInputStream(input);
 	}
 }
