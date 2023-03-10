@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,12 +48,13 @@ public class App {
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
 			CompressionAlgorithm algorithm = ALGORITHMS.get(compressionAlgorithm);
 			List<byte[]> compressedItems = new ArrayList<byte[]>();
+			System.gc();
 			AtomicLong lengthArticlesText = new AtomicLong();
 			long startReadingAndCompressTime = System.currentTimeMillis();
 			InputReader.readPages(inputStream, pagesLimit, (title, text) -> {
 				String item = "title".equals(tagToExtract) ? title : text;
 				lengthArticlesText.addAndGet(item.length());
-				compressedItems.add(algorithm.compress(item));
+				compressedItems.add(algorithm.compress(item.getBytes(StandardCharsets.UTF_8)));
 			});
 			long endReadingAndCompressTime = System.currentTimeMillis();
 			long bytsCompress = 0;

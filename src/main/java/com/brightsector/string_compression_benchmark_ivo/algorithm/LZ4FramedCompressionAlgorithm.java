@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import net.jpountz.lz4.LZ4FrameInputStream;
 import net.jpountz.lz4.LZ4FrameOutputStream;
 
-public class LZ4FramedCompressionAlgorithm extends CompressionAlgorithm {
+public class LZ4FramedCompressionAlgorithm extends StreamCompressionAlgorithm {
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
