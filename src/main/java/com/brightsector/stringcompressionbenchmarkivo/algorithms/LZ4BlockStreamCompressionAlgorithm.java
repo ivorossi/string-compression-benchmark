@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,11 +11,11 @@ import net.jpountz.lz4.LZ4BlockOutputStream;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 
-public class LZ4BlockCompressionAlgorithm extends StreamCompressionAlgorithm {
+public class LZ4BlockStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
+	private final LZ4Compressor lz4HihgCompressor = LZ4Factory.fastestJavaInstance().highCompressor(17);
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
-		LZ4Compressor lz4HihgCompressor = LZ4Factory.fastestJavaInstance().highCompressor(17);
 		return new LZ4BlockOutputStream(output, 921600, lz4HihgCompressor);
 	}
 
@@ -23,5 +23,4 @@ public class LZ4BlockCompressionAlgorithm extends StreamCompressionAlgorithm {
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new LZ4BlockInputStream(input);
 	}
-
 }

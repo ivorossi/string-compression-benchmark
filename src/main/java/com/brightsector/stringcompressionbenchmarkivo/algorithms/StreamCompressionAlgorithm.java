@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

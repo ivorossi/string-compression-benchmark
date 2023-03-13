@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 
-public class B2ZipCompressionAlgorithm extends StreamCompressionAlgorithm {
+public class B2ZipStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {

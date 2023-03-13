@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import org.apache.commons.compress.compressors.deflate.DeflateCompressorInputStream;
 import org.apache.commons.compress.compressors.deflate.DeflateCompressorOutputStream;
 
-public class DeflaterCompressionAlgorithm extends StreamCompressionAlgorithm {
+public class DeflaterStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
@@ -20,5 +20,4 @@ public class DeflaterCompressionAlgorithm extends StreamCompressionAlgorithm {
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new DeflateCompressorInputStream(input);
 	}
-
 }

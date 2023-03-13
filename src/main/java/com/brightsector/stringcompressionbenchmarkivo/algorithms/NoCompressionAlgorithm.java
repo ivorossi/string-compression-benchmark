@@ -1,6 +1,6 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
-public class NoCompress implements CompressionAlgorithm {
+public class NoCompressionAlgorithm implements CompressionAlgorithm {
 
 	@Override
 	public byte[] compress(byte[] data) {
@@ -11,5 +11,4 @@ public class NoCompress implements CompressionAlgorithm {
 	public byte[] uncompress(byte[] data) {
 		return data;
 	}
-
 }

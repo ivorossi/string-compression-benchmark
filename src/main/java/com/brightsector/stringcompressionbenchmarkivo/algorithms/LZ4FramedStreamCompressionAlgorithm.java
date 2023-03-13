@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo.algorithm;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -6,19 +6,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
-import org.apache.commons.compress.compressors.xz.XZCompressorOutputStream;
+import net.jpountz.lz4.LZ4FrameInputStream;
+import net.jpountz.lz4.LZ4FrameOutputStream;
 
-public class XZCompressionAlgorithm extends StreamCompressionAlgorithm {
+public class LZ4FramedStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
-		return new XZCompressorOutputStream(output);
+		return new LZ4FrameOutputStream(output);
 	}
 
 	@Override
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
-		return new XZCompressorInputStream(input);
+		return new LZ4FrameInputStream(input);
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.brightsector.string_compression_benchmark_ivo;
+package com.brightsector.stringcompressionbenchmarkivo;
 
 import java.io.InputStream;
 import java.util.function.BiConsumer;
