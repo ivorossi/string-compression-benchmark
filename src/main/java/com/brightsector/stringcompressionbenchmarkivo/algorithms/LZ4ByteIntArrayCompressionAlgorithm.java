@@ -6,7 +6,7 @@ import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
 
-public class LZ4ByteArrayCompressionAlgorithm implements CompressionAlgorithm {
+public class LZ4ByteIntArrayCompressionAlgorithm implements CompressionAlgorithm {
 	private final LZ4Factory factory = LZ4Factory.fastestInstance();
 	private final LZ4Compressor compressor = factory.highCompressor(17);
 	private final LZ4FastDecompressor decompressor = factory.fastDecompressor();

@@ -20,7 +20,8 @@ import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgo
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.DeflaterStreamCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.GzipStreamCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZ4BlockStreamCompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZ4ByteArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZ4ByteIntArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZ4ByteWhileArrayCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZ4FramedStreamCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZFBytesCompressionAlgortihm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.LZMAStreamCompressionAlgorithm;
@@ -36,18 +37,19 @@ public class App {
 	public static Map<String, CompressionAlgorithm> ALGORITHMS = new HashMap<>();
 	static {
 		ALGORITHMS.putAll(Map.of(
-				"GZIPStream", new GzipStreamCompressionAlgorithm(), 
-				"B2ZipStream",new B2ZipStreamCompressionAlgorithm(), 
-				"DeflaterStream", new DeflaterStreamCompressionAlgorithm(), 
-				"LZ4FramedStream", new LZ4FramedStreamCompressionAlgorithm(), 
-				"LZ4BlockStream", new LZ4BlockStreamCompressionAlgorithm(), 
+				"GZIPStream", new GzipStreamCompressionAlgorithm(),
+				"B2ZipStream",new B2ZipStreamCompressionAlgorithm(),
+				"DeflaterStream", new DeflaterStreamCompressionAlgorithm(),
+				"LZ4FramedStream", new LZ4FramedStreamCompressionAlgorithm(),
+				"LZ4BlockStream", new LZ4BlockStreamCompressionAlgorithm(),
 				"LZMAStream", new LZMAStreamCompressionAlgorithm(), 
-				"ZStdStream", new ZStandardStreamCompressionAlgorithm(), 
+				"ZStdStream", new ZStandardStreamCompressionAlgorithm(),
 				"XZStream", new XZStreamCompressionAlgorithm(),
 				"SnnapyStdStream", new SnnapyStandardStreamCompressionAlgorithm()));
 		ALGORITHMS.putAll(Map.of(
 				"SnappyBytes", new SnappyByteArrayCompressionAlgorithm(),
-				"LZ4Bytes", new LZ4ByteArrayCompressionAlgorithm(),
+				"LZ4BytesInt", new LZ4ByteIntArrayCompressionAlgorithm(),
+				"LZ4BytesWhile", new LZ4ByteWhileArrayCompressionAlgorithm(),
 				"ZStdByte", new ZstdByteArrayCompressionAlgorithm(),
 				"LZFBytes", new LZFBytesCompressionAlgortihm(),
 				"NoCompress", new NoCompressionAlgorithm()));
