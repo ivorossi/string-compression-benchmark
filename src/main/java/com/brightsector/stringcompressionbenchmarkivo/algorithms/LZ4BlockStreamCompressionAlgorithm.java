@@ -13,8 +13,7 @@ import net.jpountz.lz4.LZ4Factory;
 
 public class LZ4BlockStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
-	public static final int LZ4_MAX_LEVEL = 17;
-	private final LZ4Compressor lz4HihgCompressor = LZ4Factory.fastestJavaInstance().highCompressor(LZ4_MAX_LEVEL);
+	private final LZ4Compressor lz4HihgCompressor = LZ4Factory.fastestJavaInstance().highCompressor(Util.LZ4_MAX_LEVEL);
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {

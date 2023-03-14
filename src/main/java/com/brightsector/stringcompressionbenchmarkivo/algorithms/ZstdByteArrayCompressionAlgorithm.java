@@ -6,7 +6,7 @@ public class ZstdByteArrayCompressionAlgorithm implements CompressionAlgorithm {
 
 	@Override
 	public byte[] compress(byte[] data) {
-		return Zstd.compress(data, ZStandardStreamCompressionAlgorithm.ZSTD_MID_LEVEL);
+		return Zstd.compress(data, Util.ZSTD_MID_LEVEL);
 	}
 
 	@Override
