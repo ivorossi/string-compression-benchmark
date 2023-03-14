@@ -6,8 +6,9 @@ import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4SafeDecompressor;
 
 public class LZ4ByteWhileArrayCompressionAlgorithm implements CompressionAlgorithm {
+
 	private final LZ4Factory factory = LZ4Factory.fastestInstance();
-	private final LZ4Compressor compressor = factory.highCompressor(LZ4_MAX_LEVEL);
+	private final LZ4Compressor compressor = factory.highCompressor(LZ4BlockStreamCompressionAlgorithm.LZ4_MAX_LEVEL);
 	private final LZ4SafeDecompressor decompressor = factory.safeDecompressor();
 
 	@Override
@@ -26,4 +27,5 @@ public class LZ4ByteWhileArrayCompressionAlgorithm implements CompressionAlgorit
 			}
 		} while (true);
 	}
+
 }

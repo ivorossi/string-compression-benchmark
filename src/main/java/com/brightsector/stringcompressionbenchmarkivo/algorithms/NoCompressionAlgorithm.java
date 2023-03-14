@@ -11,4 +11,5 @@ public class NoCompressionAlgorithm implements CompressionAlgorithm {
 	public byte[] uncompress(byte[] data) {
 		return data;
 	}
+
 }

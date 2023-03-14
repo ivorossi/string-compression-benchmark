@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 
 public class App {
+
 	private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
@@ -41,22 +42,24 @@ public class App {
 			throw new IllegalArgumentException("Error reading file: " + path, e);
 		}
 		long endReadingAndCompressTime = System.currentTimeMillis();
+		System.gc();
+		LOG.debug("source: {}, algorithm: {}.", path, compressionAlgorithm);
+		LOG.debug("total memory: {}, free memory: {}.", Runtime.getRuntime().totalMemory(),
+				Runtime.getRuntime().freeMemory());
+		LOG.debug("time reading and compressing: {}, articles byte size: {}.",
+				(endReadingAndCompressTime - startReadingAndCompressTime), lengthArticlesText);
 		long bytsCompress = 0;
 		long startUncompressTime = System.currentTimeMillis();
 		long bytsDecompress = 0;
 		for (byte[] compressedItem : compressedItems) {
 			bytsCompress += compressedItem.length;
-			byte [] decompress = algorithm.uncompress(compressedItem);
+			byte[] decompress = algorithm.uncompress(compressedItem);
 			bytsDecompress += decompress.length;
 		}
 		long endUncompressTime = System.currentTimeMillis();
-		LOG.debug("source: {}, algorithm: {}.", path, compressionAlgorithm);
-		LOG.debug("total memory: {}, free memory: {}.", Runtime.getRuntime().totalMemory(),
-				Runtime.getRuntime().freeMemory());
-		LOG.debug("time reading and compressing: {}, time decompress: {}.",
-				(endReadingAndCompressTime - startReadingAndCompressTime), (endUncompressTime - startUncompressTime));
-		LOG.debug("articles byte size: {}, compress byte size: {}", lengthArticlesText, bytsCompress);
-		LOG.debug("decompress byte size: {}", bytsDecompress);
-		System.gc();
+		LOG.debug("time decompress: {}, compress byte size: {}.", (endUncompressTime - startUncompressTime),
+				bytsCompress);
+		LOG.debug("decompress byte size: {}.", bytsDecompress);
 	}
+
 }

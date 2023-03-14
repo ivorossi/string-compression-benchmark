@@ -24,4 +24,5 @@ public class SnappyByteArrayCompressionAlgorithm implements CompressionAlgorithm
 			throw new UncheckedIOException("Error decompressing: ", e);
 		}
 	}
+
 }

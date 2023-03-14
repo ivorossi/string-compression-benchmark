@@ -20,4 +20,5 @@ public class LZ4FramedStreamCompressionAlgorithm extends StreamCompressionAlgori
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new LZ4FrameInputStream(input);
 	}
+
 }

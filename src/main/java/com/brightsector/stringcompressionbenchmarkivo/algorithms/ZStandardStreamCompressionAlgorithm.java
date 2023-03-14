@@ -11,6 +11,8 @@ import org.apache.commons.compress.compressors.zstandard.ZstdCompressorOutputStr
 
 public class ZStandardStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
+	public static final int ZSTD_MID_LEVEL = 10;
+
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
 		return new ZstdCompressorOutputStream(output, ZSTD_MID_LEVEL);
@@ -20,4 +22,5 @@ public class ZStandardStreamCompressionAlgorithm extends StreamCompressionAlgori
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new ZstdCompressorInputStream(input);
 	}
+
 }

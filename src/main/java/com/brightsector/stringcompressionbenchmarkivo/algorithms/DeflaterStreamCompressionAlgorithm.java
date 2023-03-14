@@ -20,4 +20,5 @@ public class DeflaterStreamCompressionAlgorithm extends StreamCompressionAlgorit
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new DeflateCompressorInputStream(input);
 	}
+
 }

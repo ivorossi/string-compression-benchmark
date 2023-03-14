@@ -20,4 +20,5 @@ public class XZStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new XZCompressorInputStream(input);
 	}
+
 }

@@ -20,4 +20,5 @@ public class SnnapyStandardStreamCompressionAlgorithm extends StreamCompressionA
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new SnappyCompressorInputStream(input);
 	}
+
 }

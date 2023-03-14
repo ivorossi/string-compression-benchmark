@@ -9,6 +9,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 public class InputReader {
+
 	private static final String PAGE_TAG_NAME = "page";
 	private static final String TITLE_TAG_NAME = "title";
 	private static final String TEXT_TAG_NAME = "text";

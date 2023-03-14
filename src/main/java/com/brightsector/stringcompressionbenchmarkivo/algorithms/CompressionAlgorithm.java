@@ -3,6 +3,7 @@ package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 import java.util.Map;
 
 public interface CompressionAlgorithm {
+
 	public static Map<String, CompressionAlgorithm> ALGORITHMS = (Map.ofEntries(
 			Map.entry("GZIPStream", new GzipStreamCompressionAlgorithm()),
 			Map.entry("B2ZipStream", new B2ZipStreamCompressionAlgorithm()),
@@ -20,10 +21,9 @@ public interface CompressionAlgorithm {
 			Map.entry("ZStdByteInt", new ZstdByteIntArrayCompressionAlgorithm()),
 			Map.entry("LZFBytes", new LZFBytesCompressionAlgortihm()),
 			Map.entry("NoCompress", new NoCompressionAlgorithm())));
-	public static final int ZSTD_MID_LEVEL = 10;
-	public static final int LZ4_MAX_LEVEL = 17;
 
 	public byte[] compress(byte[] data);
 
 	public byte[] uncompress(byte[] data);
+
 }

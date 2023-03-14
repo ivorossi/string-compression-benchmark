@@ -20,4 +20,5 @@ public class LZMAStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new LZMACompressorInputStream(input);
 	}
+
 }

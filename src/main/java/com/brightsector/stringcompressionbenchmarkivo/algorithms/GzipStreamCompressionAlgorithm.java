@@ -20,4 +20,5 @@ public class GzipStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 	public InputStream getUncompressAlgorithm(ByteArrayInputStream input) throws IOException {
 		return new GzipCompressorInputStream(input);
 	}
+
 }

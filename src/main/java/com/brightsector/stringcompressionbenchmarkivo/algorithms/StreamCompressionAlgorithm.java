@@ -36,4 +36,5 @@ public abstract class StreamCompressionAlgorithm implements CompressionAlgorithm
 			throw new UncheckedIOException("Error decompressing: ", e);
 		}
 	}
+
 }
