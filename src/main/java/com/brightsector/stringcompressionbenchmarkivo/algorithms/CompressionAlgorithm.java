@@ -17,6 +17,7 @@ public interface CompressionAlgorithm {
 			Map.entry("LZ4BytesInt", new LZ4ByteIntArrayCompressionAlgorithm()),
 			Map.entry("LZ4BytesWhile", new LZ4ByteWhileArrayCompressionAlgorithm()),
 			Map.entry("ZStdByte", new ZstdByteArrayCompressionAlgorithm()),
+			Map.entry("ZStdByteInt", new ZstdByteIntArrayCompressionAlgorithm()),
 			Map.entry("LZFBytes", new LZFBytesCompressionAlgortihm()),
 			Map.entry("NoCompress", new NoCompressionAlgorithm())));
 	public static final int ZSTD_MID_LEVEL = 10;
