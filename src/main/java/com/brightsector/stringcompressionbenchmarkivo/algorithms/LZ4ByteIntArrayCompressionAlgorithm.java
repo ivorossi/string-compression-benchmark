@@ -1,6 +1,7 @@
 package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
@@ -8,7 +9,7 @@ import net.jpountz.lz4.LZ4FastDecompressor;
 
 public class LZ4ByteIntArrayCompressionAlgorithm implements CompressionAlgorithm {
 	private final LZ4Factory factory = LZ4Factory.fastestInstance();
-	private final LZ4Compressor compressor = factory.highCompressor(17);
+	private final LZ4Compressor compressor = factory.fastCompressor();
 	private final LZ4FastDecompressor decompressor = factory.fastDecompressor();
 
 	@Override
@@ -19,9 +20,8 @@ public class LZ4ByteIntArrayCompressionAlgorithm implements CompressionAlgorithm
 
 	@Override
 	public byte[] uncompress(byte[] data) {
-		byte[] byteLength = new byte[Integer.BYTES];
-		System.arraycopy(data, 0, byteLength, 0, Integer.BYTES);
-		int lenght = ByteBuffer.wrap(byteLength).getInt();
+		byte[] byteLenght = Arrays.copyOf(data, Integer.BYTES);
+		int lenght = ByteBuffer.wrap(byteLenght).getInt();
 		return decompressor.decompress(data, Integer.BYTES, lenght);
 	}
 }

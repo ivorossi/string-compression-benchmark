@@ -13,7 +13,7 @@ public class ZStandardStreamCompressionAlgorithm extends StreamCompressionAlgori
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
-		return new ZstdCompressorOutputStream(output, 10);
+		return new ZstdCompressorOutputStream(output, ZSTD_MID_LEVEL);
 	}
 
 	@Override
