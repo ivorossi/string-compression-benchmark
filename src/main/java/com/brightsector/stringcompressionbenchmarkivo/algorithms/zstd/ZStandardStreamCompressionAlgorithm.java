@@ -1,4 +1,4 @@
-package com.brightsector.stringcompressionbenchmarkivo.algorithms;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,6 +8,9 @@ import java.io.OutputStream;
 
 import org.apache.commons.compress.compressors.zstandard.ZstdCompressorInputStream;
 import org.apache.commons.compress.compressors.zstandard.ZstdCompressorOutputStream;
+
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.StreamCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
 
 public class ZStandardStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 

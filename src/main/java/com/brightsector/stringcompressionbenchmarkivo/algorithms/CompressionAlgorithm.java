@@ -16,7 +16,17 @@ import com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4.LZ4HCHighLe
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4.LZ4HCLowLevelLengthArrayCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4.LZ4HCLowLevelWhileArrayCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4.LZ4HCMaxLevelLengthArrayCompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4.LZFBytesCompressionAlgortihm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZStandardStreamCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMaxLevelSizeArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdHighLevelLengthArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdHighLevelSizeArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdLowLevelLengthArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdLowLevelSizeArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMaxLevelLengthArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMidLevelLengthArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMidLevelSizeArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMinLevelLengthArrayCompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdMinLevelSizeArrayCompressionAlgorithm;
 
 public interface CompressionAlgorithm {
 
@@ -43,8 +53,16 @@ public interface CompressionAlgorithm {
 			Map.entry("LZ4HCLowWhile", new LZ4HCLowLevelWhileArrayCompressionAlgorithm()),
 			Map.entry("LZ4HCMinWhile", new LZ4HCMinLevelWhileArrayCompressionAlgorithm()),
 			Map.entry("LZ4FCWhile", new LZ4FCWhileArrayCompressionAlgorithm()),
-			Map.entry("ZStdByte", new ZstdByteArrayCompressionAlgorithm()),
-			Map.entry("ZStdByteInt", new ZstdByteIntArrayCompressionAlgorithm()),
+			Map.entry("ZStdMaxSize", new ZstdMaxLevelSizeArrayCompressionAlgorithm()),
+			Map.entry("ZStdHighSize", new ZstdHighLevelSizeArrayCompressionAlgorithm()),
+			Map.entry("ZStdMidSize", new ZstdMidLevelSizeArrayCompressionAlgorithm()),
+			Map.entry("ZStdLowSize", new ZstdLowLevelSizeArrayCompressionAlgorithm()),
+			Map.entry("ZStdMinSize", new ZstdMinLevelSizeArrayCompressionAlgorithm()),
+			Map.entry("ZStdMaxLength", new ZstdMaxLevelLengthArrayCompressionAlgorithm()),
+			Map.entry("ZStdHighLength", new ZstdHighLevelLengthArrayCompressionAlgorithm()),
+			Map.entry("ZStdMidLength", new ZstdMidLevelLengthArrayCompressionAlgorithm()),
+			Map.entry("ZStdLowLength", new ZstdLowLevelLengthArrayCompressionAlgorithm()),
+			Map.entry("ZStdMinLength", new ZstdMinLevelLengthArrayCompressionAlgorithm()),
 			Map.entry("LZFBytes", new LZFBytesCompressionAlgortihm()),
 			Map.entry("NoCompress", new NoCompressionAlgorithm())));
 

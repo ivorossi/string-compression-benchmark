@@ -9,7 +9,7 @@ import net.jpountz.lz4.LZ4SafeDecompressor;
 public abstract class LZ4WhileArrayCompressionAlgorithm implements CompressionAlgorithm {
 
 	private final LZ4Compressor compressor;
-	private final LZ4SafeDecompressor decompressor = LZ4Factory.fastestInstance().safeDecompressor();
+	private final LZ4SafeDecompressor decompressor = LZ4Factory.fastestJavaInstance().safeDecompressor();
 
 	public LZ4WhileArrayCompressionAlgorithm() {
 		this.compressor = setLevel();

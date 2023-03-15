@@ -1,6 +1,5 @@
-package com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms;
 
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 import com.ning.compress.lzf.LZFDecoder;
 import com.ning.compress.lzf.LZFEncoder;
 import com.ning.compress.lzf.LZFException;
