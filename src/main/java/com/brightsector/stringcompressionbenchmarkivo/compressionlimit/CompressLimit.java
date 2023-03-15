@@ -37,7 +37,6 @@ public class CompressLimit {
 					List<Float> list = new ArrayList<>();
 					for (int length = 1; length < dateLengthLimit; length++) {
 						byte[] byteToCompress = Arrays.copyOf(item.getBytes(), length);
-
 						list.add((float) length / (float) algorithm.compress(byteToCompress).length);
 					}
 					matrix.add(list);
@@ -52,7 +51,7 @@ public class CompressLimit {
 				rate += matrix.get(j).get(i);
 			}
 			rate = rate / matrix.size();
-			LOG.debug("{}, {}", (i + 1), Math.round(rate * 10000f) / 10000f);
+			LOG.debug("length: {}, rate: {}", (i + 1), Math.round(rate * 10000f) / 10000f);
 		}
 	}
 
