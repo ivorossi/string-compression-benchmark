@@ -1,6 +1,9 @@
-package com.brightsector.stringcompressionbenchmarkivo.algorithms;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4;
 
 import java.nio.ByteBuffer;
+
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
 
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;

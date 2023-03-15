@@ -1,10 +1,12 @@
-package com.brightsector.stringcompressionbenchmarkivo.algorithms;
+package com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.StreamCompressionAlgorithm;
 
 import net.jpountz.lz4.LZ4FrameInputStream;
 import net.jpountz.lz4.LZ4FrameOutputStream;
