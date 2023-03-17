@@ -1,8 +1,7 @@
-package com.brightsector.string_compression_benchmark_ivo;
+package com.brightsector.stringcompressionbenchmarkivo;
 
 import java.io.InputStream;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.function.BiConsumer;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -10,6 +9,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 public class InputReader {
+
 	private static final String PAGE_TAG_NAME = "page";
 	private static final String TITLE_TAG_NAME = "title";
 	private static final String TEXT_TAG_NAME = "text";
@@ -32,33 +32,31 @@ public class InputReader {
 		return characters.toString();
 	}
 
-	public static Map<String, String> readPages(InputStream inputStream, int pagesLimit) {
+	public static void readPages(InputStream inputStream, int pagesLimit, BiConsumer<String, String> reader) {
 		try {
 			int pageNumber = 0;
-			Map<String, String> output = new TreeMap<String, String>();
 			XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
 			while (xmlReader.hasNext() && pageNumber < pagesLimit) {
 				int eventCode = xmlReader.next();
 				if (isPageStart(xmlReader, eventCode)) {
 					pageNumber++;
-					String key = null;
-					String value = null;
+					String title = null;
+					String text = null;
 					while (!isPageEnd(xmlReader, eventCode)) {
 						eventCode = xmlReader.next();
 						if (XMLStreamConstants.START_ELEMENT == eventCode) {
 							if (TITLE_TAG_NAME.equals(xmlReader.getLocalName())) {
-								key = readCharacters(xmlReader);
+								title = readCharacters(xmlReader);
 							}
 							if (TEXT_TAG_NAME.equals(xmlReader.getLocalName())) {
-								value = readCharacters(xmlReader);
+								text = readCharacters(xmlReader);
 							}
 						}
 					}
-					output.put(key, value);
+					reader.accept(title, text);
 				}
 			}
 			xmlReader.close();
-			return output;
 		} catch (XMLStreamException e) {
 			throw new IllegalStateException("Error processing XML", e);
 		}
