@@ -23,7 +23,7 @@ public class LZ4WhileArrayCompressionAlgorithm implements CompressionAlgorithm {
 	public static final CompressionAlgorithm LZ4_FC_WHILE = new LZ4WhileArrayCompressionAlgorithm(
 			LZ4Factory.fastestInstance().fastCompressor());
 	private final LZ4Compressor compressor;
-	private final LZ4SafeDecompressor decompressor = LZ4Factory.fastestJavaInstance().safeDecompressor();
+	private final LZ4SafeDecompressor decompressor = LZ4Factory.fastestInstance().safeDecompressor();
 
 	public LZ4WhileArrayCompressionAlgorithm(LZ4Compressor compressor) {
 		this.compressor = compressor;

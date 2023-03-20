@@ -1,7 +1,5 @@
 package com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4;
 
-import java.nio.ByteBuffer;
-
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
 
@@ -24,7 +22,7 @@ public class LZ4LengthArrayCompressionAlgorithm implements CompressionAlgorithm 
 	public static final CompressionAlgorithm LZ4_FC_LENGTH = new LZ4LengthArrayCompressionAlgorithm(
 			LZ4Factory.fastestInstance().fastCompressor());
 	private final LZ4Compressor compressor;
-	private final LZ4FastDecompressor decompressor = LZ4Factory.safeInstance().fastDecompressor();
+	private final LZ4FastDecompressor decompressor = LZ4Factory.fastestInstance().fastDecompressor();
 
 	public LZ4LengthArrayCompressionAlgorithm(LZ4Compressor compressor) {
 		this.compressor = compressor;
@@ -33,8 +31,7 @@ public class LZ4LengthArrayCompressionAlgorithm implements CompressionAlgorithm 
 	@Override
 	public byte[] compress(byte[] data) {
 		byte[] compressedData = compressor.compress(data);
-		return ByteBuffer.allocate(Integer.BYTES + compressedData.length).putInt(data.length).put(compressedData)
-				.array();
+		return Util.addOriginalLengthTo(compressedData, data.length);
 	}
 
 	@Override

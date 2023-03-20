@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +58,7 @@ public class App {
 		long endUncompressTime = System.currentTimeMillis();
 		LOG.debug("time decompress: {}, compress byte size: {}.", (endUncompressTime - startUncompressTime),
 				bytsCompress);
-		LOG.debug("decompress byte size: {}.", bytsDecompress);
+		LOG.debug("decompress byte size: {}.", bytsDecompress);	
 	}
 
 }

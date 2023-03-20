@@ -1,7 +1,5 @@
 package com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd;
 
-import java.nio.ByteBuffer;
-
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
 import com.github.luben.zstd.Zstd;
@@ -27,8 +25,7 @@ public class ZstdLengthArrayCompressionAlgorithm implements CompressionAlgorithm
 	@Override
 	public byte[] compress(byte[] data) {
 		byte[] compressedData = Zstd.compress(data, level);
-		return ByteBuffer.allocate(Integer.BYTES + compressedData.length).putInt(data.length).put(compressedData)
-				.array();
+		return Util.addOriginalLengthTo(compressedData, data.length);
 	}
 
 	@Override
