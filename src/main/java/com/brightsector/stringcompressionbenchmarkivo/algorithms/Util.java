@@ -24,4 +24,8 @@ public final class Util {
 		return ByteBuffer.wrap(originalLength).getInt();
 	}
 
+	public static byte[] addOriginalLengthTo(byte[] compressedData, int orignalLength) {
+		return ByteBuffer.allocate(Integer.BYTES + compressedData.length).putInt(orignalLength).put(compressedData).array();
+	}
+
 }
