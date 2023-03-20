@@ -1,8 +1,8 @@
 package com.brightsector.stringcompressionbenchmarkivotest.algorithmstest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
 
@@ -12,11 +12,10 @@ public class UtilTest {
 	@Test
 	public void oneBytegetGetOriginalLengthTest() {
 		assertEquals(1, Util.getOriginalLength(Util.addOriginalLengthTo(oneByete, oneByete.length)));
-
 	}
 
 	@Test
-	public void oneBytegetSetOriginalLengthTest() {
+	public void oneBytegetAddOriginalLengthTest() {
 		assertEquals(5, Util.addOriginalLengthTo(oneByete, oneByete.length).length);
 	}
 

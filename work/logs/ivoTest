@@ -1,5 +1,0 @@
-2023-03-20 10:02:09 DEBUG [com.brightsector.stringcompressionbenchmarkivo.App] source: src/test/resources/enwiki-test.xml.bz2, algorithm: NoCompress.
-2023-03-20 10:02:09 DEBUG [com.brightsector.stringcompressionbenchmarkivo.App] total memory: 20971520, free memory: 15700744.
-2023-03-20 10:02:09 DEBUG [com.brightsector.stringcompressionbenchmarkivo.App] time reading and compressing: 51, articles byte size: 172119.
-2023-03-20 10:02:09 DEBUG [com.brightsector.stringcompressionbenchmarkivo.App] time decompress: 0, compress byte size: 172119.
-2023-03-20 10:02:09 DEBUG [com.brightsector.stringcompressionbenchmarkivo.App] decompress byte size: 172119.
