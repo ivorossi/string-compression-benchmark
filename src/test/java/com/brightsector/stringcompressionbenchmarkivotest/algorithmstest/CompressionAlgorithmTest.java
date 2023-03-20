@@ -1,12 +1,13 @@
 package com.brightsector.stringcompressionbenchmarkivotest.algorithmstest;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.NoCompressionAlgorithm;

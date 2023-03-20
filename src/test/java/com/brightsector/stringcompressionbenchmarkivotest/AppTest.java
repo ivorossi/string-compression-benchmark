@@ -1,27 +1,27 @@
 package com.brightsector.stringcompressionbenchmarkivotest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.App;
 
 public class AppTest {
 
-	private final File logFile = new File("work/logs/ivoTest");
+	private final File logFile = new File("work/logs/ivoTest.log");
 	private final String path = "src/test/resources/enwiki-test.xml.bz2";
 	private final String algorithm = "NoCompress";
 
-	@Before
-	public void mainLogDeleteTest() {
+	@BeforeEach
+	public void mainLogDelete() {
 		logFile.delete();
 	}
 
