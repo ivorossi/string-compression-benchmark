@@ -100,12 +100,26 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>6.55.0</version>
+				<version>3.20.0</version>
 				<configuration>
 					<rulesets>
 						<ruleset>/rulesets/java/braces.xml</ruleset>
 						<ruleset>/rulesets/java/naming.xml</ruleset>
 					</rulesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.7.3.2</version>
+				<configuration>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>1.12.0</version>
+						</plugin>
+					</plugins>
 				</configuration>
 			</plugin>
 		</plugins>

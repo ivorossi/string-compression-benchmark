@@ -10,13 +10,13 @@ import org.apache.commons.compress.compressors.zstandard.ZstdCompressorInputStre
 import org.apache.commons.compress.compressors.zstandard.ZstdCompressorOutputStream;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.StreamCompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.Util;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
 
 public class ZStandardStreamCompressionAlgorithm extends StreamCompressionAlgorithm {
 
 	@Override
 	public OutputStream getCompressAlgorithm(ByteArrayOutputStream output, int textSize) throws IOException {
-		return new ZstdCompressorOutputStream(output, Util.ZSTD_MID_LEVEL);
+		return new ZstdCompressorOutputStream(output, compressionUtil.ZSTD_MID_LEVEL);
 	}
 
 	@Override

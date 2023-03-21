@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
 import com.brightsector.stringcompressionbenchmarkivo.compressionlimit.CompressLimit;
 
 public class CompressLimitTest {
@@ -30,7 +30,7 @@ public class CompressLimitTest {
 		int amountPoints = 1000;
 		String path = "src/test/resources/enwiki-test.xml.bz2";
 		int metaDataLog = 106;
-		CompressionAlgorithm.ALGORITHMS.forEach((algorithm, value) -> {
+		compressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
 			CompressLimit.main(new String[] { path, "20", "text", algorithm, String.valueOf(amountPoints) });
 			assertTrue(logFile.exists());
 			try {

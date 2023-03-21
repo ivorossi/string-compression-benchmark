@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.brightsector.stringcompressionbenchmarkivo.App;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.StringCompressionBenchmarkMain;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
 
-public class AppTest {
+public class StringCompressionBenchmarkMainTest {
 
 	private final File logFile = new File("work/logs/string-compression-benchmark-ivotest.log");
 
@@ -30,8 +30,8 @@ public class AppTest {
 		int amountLines = 5;
 		String path = "src/test/resources/enwiki-test.xml.bz2";
 		int metaDataLog = 79;
-		CompressionAlgorithm.ALGORITHMS.forEach((algorithm, value) -> {
-			App.main(new String[] { path, "20", "text", algorithm });
+		compressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
+			StringCompressionBenchmarkMain.main(new String[] { path, "20", "text", algorithm });
 			assertTrue(logFile.exists());
 			String[] expected = { String.format("source: %s, algorithm: %s.", path, algorithm),
 					"total memory: , free memory: .", "time reading and compressing: , articles byte size: .",
