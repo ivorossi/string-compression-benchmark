@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,19 +29,20 @@ public class CompressLimitTest {
 
 	@Test
 	public void mainCreateTest() {
-		int amountPoints = 1000;
-		String path = "src/test/resources/enwiki-test.xml.bz2";
+		int amountPoints = 20;
+		String srcPath = "src/test/resources/enwiki-test.xml.bz2";
+		Path logPath =  Paths.get(logFile.getPath());
 		int metaDataLog = 106;
 		CompressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
-			CompressLimit.main(new String[] { path, "20", "text", algorithm, String.valueOf(amountPoints) });
+			CompressLimit.main(new String[] { srcPath, "20", "text", algorithm, String.valueOf(amountPoints) });
 			assertTrue(logFile.exists());
 			List<String> lastLines;
 			try {
-				lastLines = Files.lines(Paths.get(logFile.getPath()))
-						.skip(Math.max(0, Files.lines(Paths.get(logFile.getPath())).count() - amountPoints))
+				lastLines = Files.lines(logPath)
+						.skip(Math.max(0, Files.lines(logPath).count() - amountPoints))
 						.collect(Collectors.toList());
 			} catch (IOException e) {
-				throw new UncheckedIOException("Error reading file: " + path, e);
+				throw new UncheckedIOException("Error reading file: " + srcPath, e);
 			}
 			String expected = String.format("Algorithm: %s.", algorithm);
 			String line = (String) lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length());

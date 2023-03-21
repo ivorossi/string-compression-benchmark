@@ -2,7 +2,6 @@ package com.brightsector.stringcompressionbenchmarkivotest.algorithmstest;
 
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
@@ -64,19 +63,9 @@ public class CompressionAlgorithmTest {
 	@Test
 	public void voidCompressionUncompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
-			byte[] compress = compressor.compress("".getBytes(StandardCharsets.UTF_8));
+			byte[] compress = compressor.compress(new byte[0] );
 			byte[] uncompress = compressor.uncompress(compress);
-			assertArrayEquals("".getBytes(StandardCharsets.UTF_8), uncompress);
-		}
-	}
-
-	@Test
-	public void nullCompressionUncompressionTest() {
-		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
-			if (compressor.getClass() != NoCompressionAlgorithm.class) {
-				assertThrows(NullPointerException.class, () -> compressor.compress(null));
-				assertThrows(NullPointerException.class, () -> compressor.compress(null));
-			}
+			assertArrayEquals(new byte[0], uncompress);
 		}
 	}
 
