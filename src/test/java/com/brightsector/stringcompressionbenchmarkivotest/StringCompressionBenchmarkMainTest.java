@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -36,17 +37,18 @@ public class StringCompressionBenchmarkMainTest {
 			String[] expected = { String.format("source: %s, algorithm: %s.", path, algorithm),
 					"total memory: , free memory: .", "time reading and compressing: , articles byte size: .",
 					"time decompress: , compress byte size: .", "decompress byte size: ." };
+			List<String> lastLines;
 			try {
-				List<String> lastLines = Files.lines(Paths.get(logFile.getPath()))
+				lastLines = Files.lines(Paths.get(logFile.getPath()))
 						.skip(Math.max(0, Files.lines(Paths.get(logFile.getPath())).count() - amountLines))
 						.collect(Collectors.toList());
-				assertEquals(expected[0], lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length()));
-				for (int i = 1; i < amountLines; i++) {
-					String line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
-					assertEquals(expected[i], line.replaceAll("\\d+", ""));
-				}
 			} catch (IOException e) {
-				throw new IllegalArgumentException("Error reading file: " + path, e);
+				throw  new UncheckedIOException("Error reading file: " + path, e);
+			}
+			assertEquals(expected[0], lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length()));
+			for (int i = 1; i < amountLines; i++) {
+				String line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
+				assertEquals(expected[i], line.replaceAll("\\d+", ""));
 			}
 		});
 	}

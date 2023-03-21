@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
-public class UtilTest {
+public class CompressionUtilTest {
 	private final byte[] oneByete = new byte[1];
 
 	@Test

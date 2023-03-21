@@ -16,7 +16,7 @@ public final class CompressionUtil {
 
 	public final static Map<String, CompressionAlgorithm> ALGORITHMS = (Map.ofEntries(
 			Map.entry("GZIPStream", new GzipStreamCompressionAlgorithm()),
-			Map.entry("B2ZipStream", new BZip2StreamCompressionAlgorithm()),
+			Map.entry("BZip2Stream", new BZip2StreamCompressionAlgorithm()),
 			Map.entry("DeflaterStream", new DeflaterStreamCompressionAlgorithm()),
 			Map.entry("LZ4FramedStream", new LZ4FramedStreamCompressionAlgorithm()),
 			Map.entry("LZ4BlockStream", new LZ4BlockStreamCompressionAlgorithm()),

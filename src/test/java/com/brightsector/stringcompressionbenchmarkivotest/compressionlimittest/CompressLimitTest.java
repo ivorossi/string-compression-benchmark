@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -33,20 +34,21 @@ public class CompressLimitTest {
 		CompressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
 			CompressLimit.main(new String[] { path, "20", "text", algorithm, String.valueOf(amountPoints) });
 			assertTrue(logFile.exists());
+			List<String> lastLines;
 			try {
-				List<String> lastLines = Files.lines(Paths.get(logFile.getPath()))
+				lastLines = Files.lines(Paths.get(logFile.getPath()))
 						.skip(Math.max(0, Files.lines(Paths.get(logFile.getPath())).count() - amountPoints))
 						.collect(Collectors.toList());
-				String expected = String.format("Algorithm: %s.", algorithm);
-				String line = (String) lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length());
-				assertEquals(expected, line);
-				expected = "length: , rate: .";
-				for (int i = 1; i < amountPoints; i++) {
-					line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
-					assertEquals(expected, line.replaceAll("\\d+", ""));
-				}
 			} catch (IOException e) {
-				throw new IllegalArgumentException("Error reading file: " + path, e);
+				throw new UncheckedIOException("Error reading file: " + path, e);
+			}
+			String expected = String.format("Algorithm: %s.", algorithm);
+			String line = (String) lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length());
+			assertEquals(expected, line);
+			expected = "length: , rate: .";
+			for (int i = 1; i < amountPoints; i++) {
+				line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
+				assertEquals(expected, line.replaceAll("\\d+", ""));
 			}
 		});
 	}
