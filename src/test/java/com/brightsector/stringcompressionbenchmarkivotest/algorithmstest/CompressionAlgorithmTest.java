@@ -40,7 +40,7 @@ public class CompressionAlgorithmTest {
 	public void badCompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test31Characters);
-			if (compressor.getClass() != NoCompressionAlgorithm.class) {
+			if (NoCompressionAlgorithm.class.equals(compressor.getClass())) {
 				assertTrue(test31Characters.length < compress.length);
 			} else {
 				assertTrue(test31Characters.length == compress.length);
@@ -52,7 +52,7 @@ public class CompressionAlgorithmTest {
 	public void goodCompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test280Characters);
-			if (compressor.getClass() != NoCompressionAlgorithm.class) {
+			if (NoCompressionAlgorithm.class.equals(compressor.getClass())) {
 				assertTrue(test280Characters.length > compress.length);
 			} else {
 				assertTrue(test280Characters.length == compress.length);
