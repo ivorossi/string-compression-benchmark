@@ -35,11 +35,12 @@ public class CompressLimit {
 			CompressionAlgorithm algorithm = CompressionUtil.ALGORITHMS.get(compressionAlgorithm);
 			InputReader.readPages(inputStream, pagesLimit, (title, text) -> {
 				String item = "title".equals(tagToExtract) ? title : text;
-				if (item.getBytes(StandardCharsets.UTF_8).length > dateLengthLimit) {
+				byte[] toParse = item.getBytes(StandardCharsets.UTF_8);
+				if (toParse.length > dateLengthLimit) {
 					List<Float> list = new ArrayList<>();
 					for (int length = 1; length < dateLengthLimit; length++) {
-						byte[] byteToCompress = Arrays.copyOf(item.getBytes(StandardCharsets.UTF_8), length);
-						list.add((float) length / (float) algorithm.compress(byteToCompress).length);
+						byte[] toCompress = Arrays.copyOf(toParse, length);
+						list.add((float) length / (float) algorithm.compress(toCompress).length);
 					}
 					matrix.add(list);
 				}
