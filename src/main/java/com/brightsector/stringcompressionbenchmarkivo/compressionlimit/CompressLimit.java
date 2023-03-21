@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.brightsector.stringcompressionbenchmarkivo.InputReader;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 public class CompressLimit {
 
@@ -32,10 +32,10 @@ public class CompressLimit {
 		LOG.debug("Algorithm: {}.", compressionAlgorithm);
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
-			CompressionAlgorithm algorithm = compressionUtil.ALGORITHMS.get(compressionAlgorithm);
+			CompressionAlgorithm algorithm = CompressionUtil.ALGORITHMS.get(compressionAlgorithm);
 			InputReader.readPages(inputStream, pagesLimit, (title, text) -> {
 				String item = "title".equals(tagToExtract) ? title : text;
-				if (item.getBytes().length > dateLengthLimit) {
+				if (item.getBytes(StandardCharsets.UTF_8).length > dateLengthLimit) {
 					List<Float> list = new ArrayList<>();
 					for (int length = 1; length < dateLengthLimit; length++) {
 						byte[] byteToCompress = Arrays.copyOf(item.getBytes(StandardCharsets.UTF_8), length);

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 public class StringCompressionBenchmarkMain {
 
@@ -29,7 +29,7 @@ public class StringCompressionBenchmarkMain {
 		String compressionAlgorithm = args[3];
 		AtomicLong lengthArticlesText = new AtomicLong();
 		List<byte[]> compressedItems = new ArrayList<>();
-		CompressionAlgorithm algorithm = compressionUtil.ALGORITHMS.get(compressionAlgorithm);
+		CompressionAlgorithm algorithm = CompressionUtil.ALGORITHMS.get(compressionAlgorithm);
 		long startReadingAndCompressTime = System.currentTimeMillis();
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {

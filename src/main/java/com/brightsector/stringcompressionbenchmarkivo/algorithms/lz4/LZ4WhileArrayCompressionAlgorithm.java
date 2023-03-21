@@ -1,7 +1,7 @@
 package com.brightsector.stringcompressionbenchmarkivo.algorithms.lz4;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Exception;
@@ -11,15 +11,15 @@ import net.jpountz.lz4.LZ4SafeDecompressor;
 public class LZ4WhileArrayCompressionAlgorithm implements CompressionAlgorithm {
 
 	public static final CompressionAlgorithm LZ4_HC_MIN_WHILE = new LZ4WhileArrayCompressionAlgorithm(
-			LZ4Factory.fastestInstance().highCompressor(compressionUtil.LZ4_MIN_LEVEL));
+			LZ4Factory.fastestInstance().highCompressor(CompressionUtil.LZ4_MIN_LEVEL));
 	public static final CompressionAlgorithm LZ4_HC_LOW_WHILE = new LZ4WhileArrayCompressionAlgorithm(
-			LZ4Factory.fastestInstance().highCompressor(compressionUtil.LZ4_LOW_LEVEL));
+			LZ4Factory.fastestInstance().highCompressor(CompressionUtil.LZ4_LOW_LEVEL));
 	public static final CompressionAlgorithm LZ4_HC_MID_WHILE = new LZ4WhileArrayCompressionAlgorithm(
-			LZ4Factory.fastestInstance().highCompressor(compressionUtil.LZ4_MID_LEVEL));
+			LZ4Factory.fastestInstance().highCompressor(CompressionUtil.LZ4_MID_LEVEL));
 	public static final CompressionAlgorithm LZ4_HC_HIGH_WHILE = new LZ4WhileArrayCompressionAlgorithm(
-			LZ4Factory.fastestInstance().highCompressor(compressionUtil.LZ4_HIGH_LEVEL));
+			LZ4Factory.fastestInstance().highCompressor(CompressionUtil.LZ4_HIGH_LEVEL));
 	public static final CompressionAlgorithm LZ4_HC_MAX_WHILE = new LZ4WhileArrayCompressionAlgorithm(
-			LZ4Factory.fastestInstance().highCompressor(compressionUtil.LZ4_MAX_LEVEL));
+			LZ4Factory.fastestInstance().highCompressor(CompressionUtil.LZ4_MAX_LEVEL));
 	public static final CompressionAlgorithm LZ4_FC_WHILE = new LZ4WhileArrayCompressionAlgorithm(
 			LZ4Factory.fastestInstance().fastCompressor());
 	private final LZ4Compressor compressor;

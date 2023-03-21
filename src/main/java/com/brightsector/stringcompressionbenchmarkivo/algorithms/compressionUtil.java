@@ -12,11 +12,11 @@ import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZStandardS
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdLengthArrayCompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.zstd.ZstdSizeArrayCompressionAlgorithm;
 
-public final class compressionUtil {
+public final class CompressionUtil {
 
-	public static Map<String, CompressionAlgorithm> ALGORITHMS = (Map.ofEntries(
+	public final static Map<String, CompressionAlgorithm> ALGORITHMS = (Map.ofEntries(
 			Map.entry("GZIPStream", new GzipStreamCompressionAlgorithm()),
-			Map.entry("B2ZipStream", new B2ZipStreamCompressionAlgorithm()),
+			Map.entry("B2ZipStream", new BZip2StreamCompressionAlgorithm()),
 			Map.entry("DeflaterStream", new DeflaterStreamCompressionAlgorithm()),
 			Map.entry("LZ4FramedStream", new LZ4FramedStreamCompressionAlgorithm()),
 			Map.entry("LZ4BlockStream", new LZ4BlockStreamCompressionAlgorithm()),
@@ -60,7 +60,7 @@ public final class compressionUtil {
 	public static final int LZ4_LOW_LEVEL = 5;
 	public static final int LZ4_MIN_LEVEL = 1;
 
-	private compressionUtil() {
+	private CompressionUtil() {
 	}
 
 	public static int getOriginalLength(byte[] data) {

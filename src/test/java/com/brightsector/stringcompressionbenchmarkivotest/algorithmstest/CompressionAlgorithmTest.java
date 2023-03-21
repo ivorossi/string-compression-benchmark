@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.NoCompressionAlgorithm;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 public class CompressionAlgorithmTest {
 
@@ -21,7 +21,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void badCompressionUncompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test31Characters);
 			byte[] uncompress = compressor.uncompress(compress);
 			assertArrayEquals(test31Characters, uncompress);
@@ -30,7 +30,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void goodCompressionUncompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test280Characters);
 			byte[] uncompress = compressor.uncompress(compress);
 			assertArrayEquals(test280Characters, uncompress);
@@ -39,7 +39,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void badCompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test31Characters);
 			if (compressor.getClass() != NoCompressionAlgorithm.class) {
 				assertTrue(test31Characters.length < compress.length);
@@ -51,7 +51,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void goodCompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test280Characters);
 			if (compressor.getClass() != NoCompressionAlgorithm.class) {
 				assertTrue(test280Characters.length > compress.length);
@@ -63,7 +63,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void voidCompressionUncompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress("".getBytes(StandardCharsets.UTF_8));
 			byte[] uncompress = compressor.uncompress(compress);
 			assertArrayEquals("".getBytes(StandardCharsets.UTF_8), uncompress);
@@ -72,7 +72,7 @@ public class CompressionAlgorithmTest {
 
 	@Test
 	public void nullCompressionUncompressionTest() {
-		for (CompressionAlgorithm compressor : compressionUtil.ALGORITHMS.values()) {
+		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			if (compressor.getClass() != NoCompressionAlgorithm.class) {
 				assertThrows(NullPointerException.class, () -> compressor.compress(null));
 				assertThrows(NullPointerException.class, () -> compressor.compress(null));

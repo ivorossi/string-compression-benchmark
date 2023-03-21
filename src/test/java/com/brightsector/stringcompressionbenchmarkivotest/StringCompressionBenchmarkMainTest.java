@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.brightsector.stringcompressionbenchmarkivo.StringCompressionBenchmarkMain;
-import com.brightsector.stringcompressionbenchmarkivo.algorithms.compressionUtil;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 public class StringCompressionBenchmarkMainTest {
 
@@ -29,8 +29,8 @@ public class StringCompressionBenchmarkMainTest {
 	public void mainLogCreateTest() {
 		int amountLines = 5;
 		String path = "src/test/resources/enwiki-test.xml.bz2";
-		int metaDataLog = 79;
-		compressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
+		int metaDataLog = 106;
+		CompressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
 			StringCompressionBenchmarkMain.main(new String[] { path, "20", "text", algorithm });
 			assertTrue(logFile.exists());
 			String[] expected = { String.format("source: %s, algorithm: %s.", path, algorithm),
