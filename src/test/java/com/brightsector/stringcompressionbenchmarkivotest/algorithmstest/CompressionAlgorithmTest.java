@@ -1,7 +1,7 @@
 package com.brightsector.stringcompressionbenchmarkivotest.algorithmstest;
 
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
@@ -40,10 +40,10 @@ public class CompressionAlgorithmTest {
 	public void badCompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test31Characters);
-			if (NoCompressionAlgorithm.class.equals(compressor.getClass())) {
-				assertTrue(test31Characters.length < compress.length);
+			if (NoCompressionAlgorithm.class.isInstance(compressor)) {
+				assertEquals(test31Characters.length, compress.length);
 			} else {
-				assertTrue(test31Characters.length == compress.length);
+				assertTrue(test31Characters.length < compress.length);
 			}
 		}
 	}
@@ -52,10 +52,10 @@ public class CompressionAlgorithmTest {
 	public void goodCompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
 			byte[] compress = compressor.compress(test280Characters);
-			if (NoCompressionAlgorithm.class.equals(compressor.getClass())) {
-				assertTrue(test280Characters.length > compress.length);
+			if (NoCompressionAlgorithm.class.isInstance(compressor)) {
+				assertEquals(test280Characters.length, compress.length);
 			} else {
-				assertTrue(test280Characters.length == compress.length);
+				assertTrue(test280Characters.length > compress.length);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ public class CompressionAlgorithmTest {
 	@Test
 	public void voidCompressionUncompressionTest() {
 		for (CompressionAlgorithm compressor : CompressionUtil.ALGORITHMS.values()) {
-			byte[] compress = compressor.compress(new byte[0] );
+			byte[] compress = compressor.compress(new byte[0]);
 			byte[] uncompress = compressor.uncompress(compress);
 			assertArrayEquals(new byte[0], uncompress);
 		}
