@@ -29,17 +29,17 @@ public class CompressLimitTest {
 
 	@Test
 	public void mainCreateTest() {
-		int amountPoints = 20;
+		int dataLengthLimit = 20;
 		String srcPath = "src/test/resources/enwiki-test.xml.bz2";
 		Path logPath =  Paths.get(logFile.getPath());
 		int metaDataLog = 106;
 		CompressionUtil.ALGORITHMS.forEach((algorithm, value) -> {
-			CompressLimit.main(new String[] { srcPath, "20", "text", algorithm, String.valueOf(amountPoints) });
+			CompressLimit.main(new String[] { srcPath, "20", "text", algorithm, String.valueOf(dataLengthLimit) });
 			assertTrue(logFile.exists());
 			List<String> lastLines;
 			try {
 				lastLines = Files.lines(logPath)
-						.skip(Math.max(0, Files.lines(logPath).count() - amountPoints))
+						.skip(Math.max(0, Files.lines(logPath).count() - dataLengthLimit))
 						.collect(Collectors.toList());
 			} catch (IOException e) {
 				throw new UncheckedIOException("Error reading file: " + srcPath, e);
@@ -48,7 +48,7 @@ public class CompressLimitTest {
 			String line = (String) lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length());
 			assertEquals(expected, line);
 			expected = "length: , rate: .";
-			for (int i = 1; i < amountPoints; i++) {
+			for (int i = 1; i < dataLengthLimit; i++) {
 				line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
 				assertEquals(expected, line.replaceAll("\\d+", ""));
 			}

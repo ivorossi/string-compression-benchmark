@@ -29,7 +29,7 @@ public class StringCompressionBenchmarkMainTest {
 
 	@Test
 	public void mainLogCreateTest() {
-		int amountLines = 5;
+		int linesCount = 5;
 		String srcPath = "src/test/resources/enwiki-test.xml.bz2";
 		Path logPath =  Paths.get(logFile.getPath());
 		int metaDataLog = 106;
@@ -42,13 +42,13 @@ public class StringCompressionBenchmarkMainTest {
 			List<String> lastLines;
 			try {
 				lastLines = Files.lines(logPath)
-						.skip(Math.max(0, Files.lines(logPath).count() - amountLines))
+						.skip(Math.max(0, Files.lines(logPath).count() - linesCount))
 						.collect(Collectors.toList());
 			} catch (IOException e) {
 				throw  new UncheckedIOException("Error reading file: " + srcPath, e);
 			}
 			assertEquals(expected[0], lastLines.get(0).subSequence(metaDataLog, lastLines.get(0).length()));
-			for (int i = 1; i < amountLines; i++) {
+			for (int i = 1; i < linesCount; i++) {
 				String line = (String) lastLines.get(i).subSequence(metaDataLog, lastLines.get(i).length());
 				assertEquals(expected[i], line.replaceAll("\\d+", ""));
 			}
