@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.brightsector.stringcompressionbenchmarkivo.InputReader;
 import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionAlgorithm;
+import com.brightsector.stringcompressionbenchmarkivo.algorithms.CompressionUtil;
 
 public class CompressLimit {
 
@@ -30,14 +32,15 @@ public class CompressLimit {
 		LOG.debug("Algorithm: {}.", compressionAlgorithm);
 		try (BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(path));
 				InputStream inputStream = new BZip2CompressorInputStream(buffer, true)) {
-			CompressionAlgorithm algorithm = CompressionAlgorithm.ALGORITHMS.get(compressionAlgorithm);
+			CompressionAlgorithm algorithm = CompressionUtil.ALGORITHMS.get(compressionAlgorithm);
 			InputReader.readPages(inputStream, pagesLimit, (title, text) -> {
 				String item = "title".equals(tagToExtract) ? title : text;
-				if (item.getBytes().length > dateLengthLimit) {
+				byte[] toParse = item.getBytes(StandardCharsets.UTF_8);
+				if (toParse.length > dateLengthLimit) {
 					List<Float> list = new ArrayList<>();
 					for (int length = 1; length < dateLengthLimit; length++) {
-						byte[] byteToCompress = Arrays.copyOf(item.getBytes(), length);
-						list.add((float) length / (float) algorithm.compress(byteToCompress).length);
+						byte[] toCompress = Arrays.copyOf(toParse, length);
+						list.add((float) length / (float) algorithm.compress(toCompress).length);
 					}
 					matrix.add(list);
 				}

@@ -35,7 +35,9 @@ public class InputReader {
 	public static void readPages(InputStream inputStream, int pagesLimit, BiConsumer<String, String> reader) {
 		try {
 			int pageNumber = 0;
-			XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
+			XMLInputFactory factory = XMLInputFactory.newFactory();
+			factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+			XMLStreamReader xmlReader = factory.createXMLStreamReader(inputStream);
 			while (xmlReader.hasNext() && pageNumber < pagesLimit) {
 				int eventCode = xmlReader.next();
 				if (isPageStart(xmlReader, eventCode)) {
